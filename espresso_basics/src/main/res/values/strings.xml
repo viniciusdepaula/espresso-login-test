@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">AndroidTesting</string>
-    <string name="username_hint">Username</string>
-    <string name="password_hint">Password</string>
-    <string name="login">Login</string>
+    <string name="username_hint">Usuário:</string>
+    <string name="password_hint">Senha:</string>
+    <string name="login">Entrar</string>
 
-    <string name="login_success">Success</string>
-    <string name="login_failed">Failure</string>
+    <string name="login_success">Sucesso</string>
+    <string name="login_failed">Falha</string>
 </resources>

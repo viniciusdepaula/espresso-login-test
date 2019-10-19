@@ -1,4 +1,4 @@
-package com.example.ajeshpai.androidtesting
+package com.google.developers.logintest
 
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
@@ -8,6 +8,7 @@ import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.util.Log
+import com.example.ajeshpai.androidtesting.R
 import org.junit.*
 
 
@@ -15,17 +16,18 @@ import org.junit.*
 class MainActivityInstrumentationTest {
 
     //rule is initialized
+    //@Rule
+    //@JvmField
+    //val rule  = getRule()
+
+
+    private val userName = "admin"
+    private val correctPass = "admin"
+    private val wrongPass = "admin1234"
+
     @Rule
-    @JvmField
-    val rule  = getRule()
-
-
-    private val username_tobe_typed="Ajesh"
-    private val correct_password ="password"
-    private val wrong_password = "passme123"
-
-    private fun getRule(): ActivityTestRule<MainActivity> {
-        Log.e("Initalising rule","getting Mainactivity")
+    fun getRule(): ActivityTestRule<MainActivity> {
+        Log.d("Inicializando a regra", "MainActivity")
         return ActivityTestRule(MainActivity::class.java)
     }
 
@@ -34,55 +36,54 @@ class MainActivityInstrumentationTest {
 
         @BeforeClass
         @JvmStatic
-        fun before_class_method(){
-            Log.e("@Before Class","Hi this is run before anything")
+        fun before_class_method() {
+            Log.d("@Before Class", "Será executado antes de todos testes")
         }
 
         @AfterClass
         @JvmStatic
-        fun after_class_method(){
-            Log.e("@After Class","Hi this is run after everything")
+        fun after_class_method() {
+            Log.d("@After Class", "Será executado depois de todos dos testes")
         }
 
     }
 
     @Before
-    fun before_test_method(){
-        Log.e("@Before","Hi this is run before every test function")
+    fun before_test_method() {
+        Log.d("@Before", "Isso será executado antes de cada um dos testes")
     }
 
 
     @Test
-    fun login_success(){
-        Log.e("@Test","Performing login success test")
+    fun login_success() {
+
         Espresso.onView((withId(R.id.user_name)))
-                .perform(ViewActions.typeText(username_tobe_typed))
+                .perform(ViewActions.typeText(userName))
 
         Espresso.onView(withId(R.id.password))
-                .perform(ViewActions.typeText(correct_password))
+                .perform(ViewActions.typeText(correctPass))
 
         Espresso.onView(withId(R.id.login_button))
                 .perform(ViewActions.click())
 
-        showingSucccess()
-
+        Espresso.onView(withId(R.id.login_result))
+                .check(matches(withText(R.string.login_success)))
 
     }
 
-
-    fun showingSucccess(){
+    fun showingSucccess() {
         Espresso.onView(withId(R.id.login_result))
                 .check(matches(withText(R.string.login_success)))
     }
 
     @Test
-    fun login_failure(){
-        Log.e("@Test","Performing login failure test")
+    fun login_failure() {
+        Log.e("@Test", "Executando os testes de falha do login")
         Espresso.onView((withId(R.id.user_name)))
-                .perform(ViewActions.typeText(username_tobe_typed))
+                .perform(ViewActions.typeText(userName))
 
         Espresso.onView(withId(R.id.password))
-                .perform(ViewActions.typeText(wrong_password))
+                .perform(ViewActions.typeText(wrongPass))
 
         Espresso.onView(withId(R.id.login_button))
                 .perform(ViewActions.click())
@@ -94,7 +95,7 @@ class MainActivityInstrumentationTest {
 
     @After
     fun after_test_method() {
-        Log.e("@After", "Hi this is run after every test function")
+        Log.d("@After", "Isso será executado depois de cada um dos testes")
     }
 
 }

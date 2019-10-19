@@ -1,4 +1,4 @@
-package com.example.ajeshpai.androidtesting
+package com.google.developers.logintest
 
 import org.junit.Test
 
